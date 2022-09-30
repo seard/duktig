@@ -1,0 +1,15 @@
+[Unit]
+Description=Autostart service for Duktig
+
+[Service]
+WorkingDirectory=/home/seard/Desktop/duktig-proj/duktig-vue
+ExecStart=npm run dev
+#Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=duktig-vue
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

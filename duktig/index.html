@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Så himla ägd Steph</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div>
+        <h1 id="ip-header">---.---.---.---</h1>
+        <h1 id="main-header">Så himla ägd AB</h1>
+    </div>  
+    <div class="bg"></div>
+    <div class="bg bg2">
+    </div>
+    <div class="bg bg3"></div>
+    <div class="content">
+        <div id="checkbox-wrapper">
+            <div>
+                <p for="red" class="label-style">Red</p>
+                <input type="checkbox" id="red" value="1" class="checkbox-style">
+            </div>
+            <div>
+                <p class="label-style">Green</p>
+                <input type="checkbox" id="green" value="1" class="checkbox-style">
+            </div>
+            <div>
+                <p class="label-style">Blue</p>
+                <input type="checkbox" id="blue" value="1" class="checkbox-style">
+            </div>
+        </div>
+        <div id="button-wrapper">
+            <div>
+                <div onClick="pulse()" class="emotion">
+                    <p>
+                        Pulse
+                    </p>
+                </div>
+                <input type="range" id="pulse-speed" min="0" max="10">
+            </div>
+        </div>
+        <textarea type="text" id="tts-text" placeholder="Text to speech..."></textarea>
+    </div>
+</body>
+
+<script src="src/component/button.grid/script.js"></script>
+
+</html>
+
+<style>
+    #tts-text {
+        margin: 1rem 0;
+        background-color: #66d0e133;
+        border: 2px solid #66d0e1;
+        border-radius: 1rem;
+        min-height: 4em;
+        text-align: center;
+        color: white;
+        transition: all 0.2s ease-in-out;
+        box-shadow: rgb(50 50 93 / 25%) 0px 13px 27px -5px, rgb(0 0 0 / 30%) 0px 8px 16px -8px;
+        font-size: 20px;
+        resize: none;
+        outline: none;
+        font-family: monospace;
+        caret-color: white;
+    }
+
+    #tts-text::placeholder {
+        color: white;
+        opacity: 0.75;
+        font-size: 15px;
+    }
+
+    #checkbox-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 2fr);
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .label-style {
+        color: white;
+        font-family: monospace;
+        font-size: 20px;
+    }
+
+    input[type="checkbox"] {
+        margin: auto;
+        transition: all 0.2s ease-in-out;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        width: 2rem;
+        height: 2rem;
+        user-select: none;
+    }
+
+    .checkbox-style:hover {
+        filter: brightness(120%) saturate(120%);
+        transform: scale(1.05);
+        background: #66d0e1;
+    }
+
+    .checkbox-style:active {
+        transform: scale(0.95);
+        transition-duration: 0.1s
+    }
+
+    #button-wrapper {
+        display: flex;
+        grid-template-columns: repeat(3, 2fr);
+        gap: 1rem;
+    }
+
+    .emotion {
+        transition: all 0.2s ease-in-out;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #66d0e1;
+        color: white;
+        width: 6rem;
+        height: 2rem;
+        border-radius: 2rem;
+        user-select: none;
+    }
+
+    .emotion:hover {
+        filter: brightness(120%) saturate(120%);
+        transform: scale(1.05);
+        background: #66d0e1;
+    }
+
+    .emotion:active {
+        transform: scale(0.95);
+        transition-duration: 0.1s
+    }
+
+    body {
+        background-color: #1ab2b8;
+        background-image: linear-gradient(to right, #1ab2b8, #d282bd);
+    }
+
+    html {
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, #d282bd 50%, #1ab2b8 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: .5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+    }
+
+    .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 8s;
+    }
+
+    .bg3 {
+        animation-duration: 10s;
+    }
+
+    #ip-header{
+        position: absolute;
+        margin: 0;
+        opacity: 25%;
+        width: 100%;
+        text-align: left;
+    }
+
+    #main-header{
+        position: absolute;
+        margin: 0;
+        opacity: 50%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .content {
+        left: 50%;
+        padding: 10vmin;
+        position: fixed;
+        text-align: center;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    h1,p {
+        color: white;
+        font-family: monospace;
+    }
+    
+    @keyframes slide {
+        0% {
+            transform: translateX(-25%);
+        }
+
+        100% {
+            transform: translateX(25%);
+        }
+    }
+</style>

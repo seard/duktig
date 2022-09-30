@@ -1,0 +1,14 @@
+[Unit]
+Description=Autostart service for SocketXP
+
+[Service]
+ExecStart=sudo socketxp connect http://localhost:3000
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=socketxp
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

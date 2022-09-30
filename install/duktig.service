@@ -1,0 +1,15 @@
+[Unit]
+Description=Autostart service for Duktig
+
+[Service]
+WorkingDirectory=/home/seard/Desktop/duktig-proj/duktig/
+ExecStart=sudo node server.js
+#Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=duktig
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
