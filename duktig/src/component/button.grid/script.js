@@ -1,4 +1,4 @@
-const BASE_URL = "https://entairex-o9kn0bba32wg5za8.socketxp.com";
+const BASE_URL = "https://sardesjo-0ilp6k0xbyhf300j.socketxp.com";
 
 function HTML_BUTTON(text, callback, params) {
     return `<div onClick="${callback}(${params})" class="emotion">
@@ -10,7 +10,7 @@ function HTML_BUTTON(text, callback, params) {
 
 $.ajax({
     type: 'GET',
-    url: 'https://entairex-o9kn0bba32wg5za8.socketxp.com/ip',
+    url: `${BASE_URL}/ip`,
     contentType: 'application/json; charset=utf-8',
     success: function(data) {
         const IP_HEADER = document.getElementById("ip-header");
@@ -20,24 +20,44 @@ $.ajax({
 });
 
 function pulse() {
-    const r = document.getElementById("red").value;
-    const g = document.getElementById("green").value;
-    const b = document.getElementById("blue").value;
-    const speed = document.getElementById("pulse-speed").value / 10.0;
+    const r = document.getElementById("cRed").value;
+    const g = document.getElementById("cGreen").value;
+    const b = document.getElementById("cBlue").value;
+    const frequency = document.getElementById("pulseFrequency").value / 10.0;
     const text = document.getElementById("tts-text").value;
 
     $.ajax({
         type: 'GET',
-        url: 'https://entairex-o9kn0bba32wg5za8.socketxp.com/led/pulse',
+        url: `${BASE_URL}/led/pulse`,
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        data: { r, g, b, speed, text },
+        data: { r, g, b, frequency, text },
         success: function(data) {
             console.log('Pulsing...');
         }
     });
 }
 
+function flash() {
+    const r = document.getElementById("cRed").value;
+    const g = document.getElementById("cGreen").value;
+    const b = document.getElementById("cBlue").value;
+    const frequency = document.getElementById("flashFrequency").value * 100;
+    const text = document.getElementById("tts-text").value;
+
+    $.ajax({
+        type: 'GET',
+        url: `${BASE_URL}/led/flash`,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: { r, g, b, frequency, text },
+        success: function(data) {
+            console.log('Flashing...');
+        }
+    });
+}
+
+// No longer works because you removed the id from the element, replaced with class
 const BUTTON_WRAPPER = document.getElementById("button-wrapper");
 /*
 BUTTON_WRAPPER.innerHTML +=
