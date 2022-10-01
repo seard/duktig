@@ -42,7 +42,7 @@ function flash() {
     const r = document.getElementById("cRed").value;
     const g = document.getElementById("cGreen").value;
     const b = document.getElementById("cBlue").value;
-    const frequency = document.getElementById("flashFrequency").value * 100;
+    const frequency = (31 - document.getElementById("flashFrequency").value) * 100;
     const text = document.getElementById("tts-text").value;
 
     $.ajax({
