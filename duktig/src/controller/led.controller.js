@@ -17,6 +17,7 @@ const LedController = {
     },
 
     resetLEDs() {
+        clearInterval(runningLoop);
         this.setR(0).setG(0).setB(0);
     },
 

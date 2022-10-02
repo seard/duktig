@@ -6,6 +6,8 @@
 -Fit the speakers inside(?) Perform tests to see if it works...
 -Start = red light -> start server.js = flash yellow -> internet connection (ping?) -> flash green for a short while, then stop
 -Get rid of AUX static? Maybe disable voltage on USB slot until playing sound
+-Play Youtube sounds?
+-Record voice commands in phone?
 #
 
 1: Install SOCKETXP

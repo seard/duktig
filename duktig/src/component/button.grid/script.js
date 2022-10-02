@@ -19,6 +19,35 @@ $.ajax({
     }
 });
 
+function stop() {
+    $.ajax({
+        type: 'GET',
+        url: `${BASE_URL}/led/stop`,
+        contentType: 'application/json; charset=utf-8',
+        success: function(data) {
+            console.log('/led/stop');
+        }
+    });
+}
+
+function set() {
+    const r = document.getElementById("cRed").value;
+    const g = document.getElementById("cGreen").value;
+    const b = document.getElementById("cBlue").value;
+    const text = document.getElementById("tts-text").value;
+
+    $.ajax({
+        type: 'GET',
+        url: `${BASE_URL}/led/set`,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: { r, g, b, text },
+        success: function(data) {
+            console.log('/led/set');
+        }
+    });
+}
+
 function pulse() {
     const r = document.getElementById("cRed").value;
     const g = document.getElementById("cGreen").value;
@@ -33,7 +62,7 @@ function pulse() {
         dataType: 'json',
         data: { r, g, b, frequency, text },
         success: function(data) {
-            console.log('Pulsing...');
+            console.log('/led/pulse');
         }
     });
 }
@@ -52,7 +81,7 @@ function flash() {
         dataType: 'json',
         data: { r, g, b, frequency, text },
         success: function(data) {
-            console.log('Flashing...');
+            console.log('/led/flash');
         }
     });
 }

@@ -13,45 +13,50 @@
         <h1 id="ip-header">---.---.---.---</h1>
         <h1 id="main-header">Så himla ägd AB</h1>
     </div>  
-    <div class="bg"></div>
-    <div class="bg bg2">
-    </div>
+    <div class="bg" style="z-index: -1;"></div>
+    <div class="bg bg2" style="z-index: -3;"></div>
     <div class="bg bg3"></div>
+    <p class="giant-d" style="font-size: 110rem; rotate: 0.25rad; top: 65%">D</p>
+    <p class="giant-d" style="font-size: 50rem; rotate: -0.5rad; left: 30%; top: 5%" >D</p>
     <div class="row-wrapper">
-        <div class="emotion emotion-slider">
-            <input id="cRed" type="range" min="0" max="255" value="100" oninput="cRedLabel.innerText = this.value">
-            <p id="cRedLabel">100</p>
+        <div class="column-wrapper">
+            <div onClick="stop()" class="emotion emotion-button full-width">
+                <p>Stop</p>
+            </div>
+            <div onClick="set()" class="emotion emotion-button full-width">
+                <p>Set</p>
+            </div>
         </div>
         <div class="emotion emotion-slider">
-            <input id="cGreen" type="range" min="0" max="255" value="100" oninput="cGreenLabel.innerText = this.value">
-            <p id="cGreenLabel">100</p>
+            <input id="cRed" type="range" min="0" max="255" value="100" oninput="cRedLabel.innerText = 'R ' + this.value">
+            <p id="cRedLabel">R 100</p>
         </div>
         <div class="emotion emotion-slider">
-            <input id="cBlue" type="range" min="0" max="255" value="100" oninput="cBlueLabel.innerText = this.value">
-            <p id="cBlueLabel">100</p>
+            <input id="cGreen" type="range" min="0" max="255" value="100" oninput="cGreenLabel.innerText =  'G ' + this.value">
+            <p id="cGreenLabel">G 100</p>
+        </div>
+        <div class="emotion emotion-slider">
+            <input id="cBlue" type="range" min="0" max="255" value="100" oninput="cBlueLabel.innerText =  'B ' + this.value">
+            <p id="cBlueLabel">B 100</p>
         </div>
 
         <div class="column-wrapper">
             <div onClick="pulse()" class="emotion emotion-button">
-                <p>
-                    Pulse
-                </p>
+                <p>Pulse</p>
             </div>
-            <div class="emotion emotion-slider">
+            <div class="emotion emotion-slider end">
                 <input id="pulseFrequency" type="range" min="1" max="30" value="5" oninput="pulseFrequencyLabel.innerText = this.value">
-                <p id="pulseFrequencyLabel">5</p>
+                <p class="small" id="pulseFrequencyLabel">5</p>
             </div>
         </div>
 
         <div class="column-wrapper">
             <div onClick="flash()" class="emotion emotion-button">
-                <p>
-                    Flash
-                </p>
+                <p>Flash</p>
             </div>
-            <div class="emotion emotion-slider">
+            <div class="emotion emotion-slider end">
                 <input id="flashFrequency" type="range" min="1" max="30" value="5" oninput="flashFrequencyLabel.innerText = this.value">
-                <p id="flashFrequencyLabel">5</p>
+                <p class="small" id="flashFrequencyLabel">5</p>
             </div>
         </div>
 
@@ -151,6 +156,10 @@
         border-radius: 2rem;
         user-select: none;
     }
+    
+    .full-width {
+        width: 100%;
+    }
 
     .emotion-button:hover {
         filter: brightness(120%) saturate(120%);
@@ -218,16 +227,20 @@
         gap: 1rem;
     }
 
+    .column-wrapper .end {
+        flex: 1;
+    }
+
     .row-wrapper {
+        width: 20rem;
         display: flex;
+        margin: auto;
         flex-direction: column;
         gap: 1rem;
         left: 50%;
         padding: 10vmin;
-        position: fixed;
         text-align: center;
         top: 50%;
-        transform: translate(-50%, -50%);
     }
 
     h1,p {
@@ -245,13 +258,19 @@
         box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     }
     .emotion-slider p {
-        width: 2rem;
+        text-align: left;
+        width: 3.5rem;
+        white-space: nowrap;
         font-size: 20px;
-        padding-left: 1rem;
+        padding-left: 0.5rem;
         color: #d1f9ff;
+        user-select: none;
+    }
+    .emotion-slider .small {
+        width: 1rem;
     }
     .emotion-slider input[type="range"] {
-        width: 100%;
+        width: 80%;
         -webkit-appearance:none !important;
         height: 2px;
         background: #51b7c7;
@@ -268,6 +287,18 @@
     }
     .emotion-slider input[type="range"]::-webkit-slider-thumb:hover {
         background: white;
+    }
+
+    .giant-d {
+        color: #d282bd;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        margin: auto;
+        opacity: 100%;
+        user-select: none;
+        z-index: -2;
     }
     
     @keyframes slide {
