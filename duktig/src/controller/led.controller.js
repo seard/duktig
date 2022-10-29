@@ -19,9 +19,11 @@ const LedController = {
     resetLEDs() {
         clearInterval(runningLoop);
         this.setR(0).setG(0).setB(0);
+        return this;
     },
 
     setR(val) {
+        console.log('val', val, typeof val);
         LEDs.R.GPIO.pwmWrite(val);
         return this;
     },

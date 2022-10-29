@@ -1,3 +1,3 @@
 #!/bin/bash
 
-journalctl -u socketxp.service -n 20
+journalctl -u socketxp.service -n 30

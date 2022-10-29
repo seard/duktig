@@ -1,0 +1,97 @@
+const BASE_URL = "https://sardesjo-0ilp6k0xbyhf300j.socketxp.com";
+
+$.ajax({
+    type: 'GET',
+    url: `${BASE_URL}/ip`,
+    contentType: 'application/json; charset=utf-8',
+    success: function(data) {
+        const IP_HEADER = document.getElementById("ip-header");
+        IP_HEADER.innerHTML = data;
+        console.log(data);
+    }
+});
+
+async function hehe() {
+    const data = await fetch(EL_PRICE_URL, { mode: 'no-cors' });
+    console.log('EL_PRICE_URL result', data);
+}
+
+function stop() {
+    $.ajax({
+        type: 'GET',
+        url: `${BASE_URL}/led/stop`,
+        contentType: 'application/json; charset=utf-8',
+        success: function(data) {
+            console.log('/led/stop');
+        }
+    });
+}
+
+function set() {
+    const r = document.getElementById("cRed").value;
+    const g = document.getElementById("cGreen").value;
+    const b = document.getElementById("cBlue").value;
+    const text = document.getElementById("tts-text").value;
+
+    $.ajax({
+        type: 'GET',
+        url: `${BASE_URL}/led/set`,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: { r, g, b, text },
+        success: function(data) {
+            console.log('/led/set');
+        }
+    });
+}
+
+function pulse() {
+    const r = document.getElementById("cRed").value;
+    const g = document.getElementById("cGreen").value;
+    const b = document.getElementById("cBlue").value;
+    const frequency = document.getElementById("pulseFrequency").value / 10.0;
+    const text = document.getElementById("tts-text").value;
+
+    $.ajax({
+        type: 'GET',
+        url: `${BASE_URL}/led/pulse`,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: { r, g, b, frequency, text },
+        success: function(data) {
+            console.log('/led/pulse');
+        }
+    });
+}
+
+function flash() {
+    const r = document.getElementById("cRed").value;
+    const g = document.getElementById("cGreen").value;
+    const b = document.getElementById("cBlue").value;
+    const frequency = (31 - document.getElementById("flashFrequency").value) * 100;
+    const text = document.getElementById("tts-text").value;
+
+    $.ajax({
+        type: 'GET',
+        url: `${BASE_URL}/led/flash`,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: { r, g, b, frequency, text },
+        success: function(data) {
+            console.log('/led/flash');
+        }
+    });
+}
+
+// No longer works because you removed the id from the element, replaced with class
+const BUTTON_WRAPPER = document.getElementById("button-wrapper");
+/*
+BUTTON_WRAPPER.innerHTML +=
+    HTML_BUTTON('Pulse', pulse.name, 'true, false, false, 0.5') +
+    HTML_BUTTON('G', pulse.name, 'false, true, false, 0.5') +
+    HTML_BUTTON('B', pulse.name, 'false, false, true, 0.5') +
+    HTML_BUTTON('RG', pulse.name, 'true, true, false, 0.5') +
+    HTML_BUTTON('RB', pulse.name, 'true, false, true, 0.5') +
+    HTML_BUTTON('GB', pulse.name, 'false, true, true, 0.5') +
+    HTML_BUTTON('RGB', pulse.name, 'true, true, true, 0.5');
+*/

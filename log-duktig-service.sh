@@ -1,3 +1,3 @@
 #!/bin/bash
 
-journalctl -u duktig.service -n 20
+journalctl -u duktig.service -n 30
