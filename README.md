@@ -10,15 +10,9 @@
 -Record voice commands in phone?
 #
 
-1: Install SOCKETXP
-
-First clear any existing SOCKETXP on the machine. Files exist in 3 places:
-/usr/local/bin/socketxp
-/var/liv/socketxp
-/etc/socketxp
-
-Follow this guide:
-https://www.socketxp.com/download/
-Raspbian OS uses 32-bit ARM system
-
-2: 
+1: Setup [duktig-middleman](https://github.com/seard/duktig-middleman)
+2: In `server.js`, set the `readCommandUrl` to the read-API on the server running the middleman:
+```javascript
+const readCommandUrl = 'https://sebastianardesjo.com/duktig/read'
+```
+3: Run `update.sh`, then reboot the device
