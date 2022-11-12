@@ -1,5 +1,6 @@
 var GPIO = require('pigpio').Gpio;
 const { exec } = require("child_process");
+const { delay } = require('../util/helpers');
 
 const LEDs = {
     R: { GPIO: new GPIO(17, { mode: GPIO.OUTPUT }) },
@@ -23,7 +24,6 @@ const LedController = {
     },
 
     setR(val) {
-        console.log('val', val, typeof val);
         LEDs.R.GPIO.pwmWrite(val);
         return this;
     },
@@ -67,6 +67,18 @@ const LedController = {
         function loop() {
             toggle = !toggle;
             LedController.setR(r * (+toggle)).setG(g * (+toggle)).setB(b * (+toggle));
+        }
+    },
+
+    alternate(rgb1, rgb2, frequency = 400) {
+        console.log(`ALTERNATE rgb1=${rgb1} | rgb2=${rgb2} | frequency=${frequency}`);
+        this.startLoop(loop, frequency);
+        const halfFrequency = Math.round(frequency * 0.5);
+        async function loop() {
+            LedController.setR(rgb1.r).setG(rgb1.g).setB(rgb1.b);
+            await delay(halfFrequency);
+            LedController.setR(rgb2.r).setG(rgb2.g).setB(rgb2.b);
+            await delay(halfFrequency);
         }
     }
 }

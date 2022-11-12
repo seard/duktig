@@ -1,5 +1,9 @@
 const request = require("request-promise");
 const cheerio = require("cheerio");
+const { Mpg123Controller } = require('./mpg123.controller');
+const { LedController } = require('./led.controller');
+const { TtsController } = require('./tts.controller');
+const { delay } = require('../util/helpers');
 
 let elPriceCrashed = false;
 
@@ -8,8 +12,48 @@ let currentPrice = null;
 let lowestPrice = null;
 let highestPrice = null;
 
+let runningLoop;
+
 const ElPriceController = {
-    getRValue() {
+    startElPriceReader(interval, speak = false) {
+        this.stopElPriceReader();
+        this.readElPrice(speak);
+
+        this._startLoop(async () => {
+            LedController.resetLEDs()
+            LedController.flash(255, 0, 0, 500);
+            await delay(2000);
+            this.readElPrice();
+        }, interval);
+    },
+
+    readElPrice(speak) {
+        this._fetchData().then(async () => {
+            LedController
+                .resetLEDs()
+                .setR(ElPriceController._getRValue())
+                .setG(ElPriceController._getGValue());
+
+            const dt = new Date();
+            const h = dt.getHours();
+            const m = dt.getMinutes();
+
+            if (speak && (h > 8 && h < 23)) {
+                await TtsController.speak(`The time is ${h}:${m} and the current electricity price is ${this._getCurrentPrice()} per kilowatt hour`);
+            }
+        });
+    },
+
+    stopElPriceReader() {
+        clearInterval(runningLoop);
+    },
+
+    _startLoop(func, interval = 25) {
+        clearInterval(runningLoop);
+        runningLoop = setInterval(func, interval);
+    },
+
+    _getRValue() {
         const diff = highestPrice - lowestPrice;
         const ledMultiplier = 255 / highestPrice;
         const correctedPrice = currentPrice - lowestPrice;
@@ -17,23 +61,19 @@ const ElPriceController = {
         return RValue;
     },
 
-    getGValue() {
+    _getGValue() {
         const diff = highestPrice - lowestPrice;
-        console.log('diff', diff);
         const ledMultiplier = 255 / highestPrice;
-        console.log('ledMultiplier', ledMultiplier);
         const correctedPrice = currentPrice - lowestPrice;
-        console.log('correctedPrice', correctedPrice);
         const GValue = 255 - Math.round(correctedPrice * ledMultiplier);
-        console.log('GValue', GValue);
         return GValue;
     },
 
-    getCurrentPrice() {
+    _getCurrentPrice() {
         return Math.round(currentPrice);
     },
 
-    async fetchData() {
+    async _fetchData() {
         if (elPriceCrashed) {
             return;
         }

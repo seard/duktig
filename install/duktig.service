@@ -1,5 +1,6 @@
 [Unit]
 Description=Autostart service for Duktig
+After=duktig-updater.service
 
 [Service]
 WorkingDirectory=/home/seard/Desktop/duktig-proj/duktig/

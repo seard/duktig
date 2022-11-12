@@ -1,0 +1,15 @@
+[Unit]
+Description=Autostart service for Duktig-updater
+
+[Service]
+WorkingDirectory=/home/seard/Desktop/duktig-proj/
+ExecStart=sudo node update.sh
+Type=oneshot
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=duktig-updater
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

@@ -18,8 +18,8 @@
     "gpio": "^0.2.10",
     "local-ip-address": "^1.0.0",
     "mpg123": "^0.2.3",
-    "ngrok": "^4.3.3",
     "pigpio": "^3.3.1",
+    "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "rpi-gpio": "^2.1.7",
     "speaker": "^0.5.4"
