@@ -1,38 +1,42 @@
 #!/bin/bash
 
-echo Installing Duktig...
+###
+# CAREFUL, DON*T TOUCH THIS FILE OR THE PROJECT MAY BREAK
+# THIS FILE IS RUN BY update.sh, CALLED BY duktig-updater.service ON STARTUP
+###
 
-echo Stopping services if exists
+date && echo Installing Duktig...
+
+date && echo Stopping services if exists
 sudo systemctl stop duktig.service
-sudo systemctl stop socketxp.service
+sudo systemctl stop duktig-updater.service
 
-echo Removing services if exists
+date && echo Removing services if exists
 sudo rm /etc/systemd/system/duktig.service
-sudo rm /etc/systemd/system/socketxp.service
+sudo rm /etc/systemd/system/duktig-updater.service
 
-echo Removing folder /usr/bin/duktig/ if exists
-sudo rm -rf /usr/bin/duktig
+#echo Removing folder /usr/bin/duktig/ if exists
+#sudo rm -rf /usr/bin/duktig
 
 #echo Copying project folder to /usr/bin/duktig
 #sudo cp -r ../duktig /usr/bin/
 
-echo Copying services to services folder
+date && echo Copying services to services folder
 sudo cp duktig.service /etc/systemd/system/duktig.service
-sudo cp socketxp.service /etc/systemd/system/socketxp.service
+sudo cp duktig.service /etc/systemd/system/duktig-updater.service
 
-echo Enabling services
+date && echo Enabling services
 sudo systemctl enable duktig.service
-sudo systemctl enable socketxp.service
+sudo systemctl enable duktig-updater.service
 
-read -p "DO YOU WISH TO REBOOT NOW? (y/n) " yn
+#read -p "DO YOU WISH TO REBOOT NOW? (y/n) " yn
 
-case $yn in 
-	y ) echo REBOOTING...;;
-	n ) echo EXITING...;
-		exit;;
-	* ) echo INVALID RESPONSE;
-		exit 1;;
-esac
+#case $yn in 
+#	y ) echo REBOOTING...;;
+#	n ) echo EXITING...;
+#		exit;;
+#	* ) echo INVALID RESPONSE;
+#		exit 1;;
+#esac
 
-sudo reboot
-
+#sudo reboot
