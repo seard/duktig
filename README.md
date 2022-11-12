@@ -1,13 +1,10 @@
 # TODO
--Place IP above main text
--Add new logotype D as background and favicon
--Print QR code to website
--Color the box
--Fit the speakers inside(?) Perform tests to see if it works...
--Start = red light -> start server.js = flash yellow -> internet connection (ping?) -> flash green for a short while, then stop
--Get rid of AUX static? Maybe disable voltage on USB slot until playing sound
+-Push IP to middleman
+-Add outlet in the box so that the speaker doesn't run on electricity from the pi
+  -Get rid of AUX static? Maybe disable voltage on USB slot until playing sound
+-Read out the version on startup
 -Play Youtube sounds?
--Record voice commands in phone?
+-Record voice commands in phone and send buffer?
 #
 
 1: Setup [duktig-middleman](https://github.com/seard/duktig-middleman)
