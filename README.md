@@ -1,3 +1,6 @@
+# LAST TIME
+- You tried to get duktig-updater.service to run ./updater.sh but it refused :(
+
 # TODO
 - Push IP to middleman
 - Add secret REBOOT API-call on website
