@@ -1,4 +1,5 @@
-var express = require('express');
+require('dotenv').config();
+let express = require('express');
 const request = require('request');
 const localIpAddress = require("local-ip-address");
 const { LedController } = require('./src/controller/led.controller');
@@ -6,6 +7,7 @@ const { TtsController } = require('./src/controller/tts.controller');
 const { Mpg123Controller } = require('./src/controller/mpg123.controller');
 const { ElPriceController } = require('./src/controller/el.price.controller');
 const { delay, randInt } = require('./src/util/helpers');
+
 
 var app = express();
 app.use(express['static'](__dirname));
@@ -101,7 +103,7 @@ const handleCommand = (json) => {
     LedController.alternate({ r: 255, g: 0, b: 155 }, { r: 0, g: 255, b: 170 }, 1000);
 
     const introductions = [
-        `Hows it hanging my neighbors. I am running Duktig version 0.2.2`,
+        `Howdy neighbors. I am running Duktig version ${process.env.VERSION}`,
         `My IP is ${localIpAddress()}`
     ];
 

@@ -12,7 +12,7 @@
 ###
 
 date && echo git checkout master
-sudo -H -u seard bash -c 'git checkout master -f'
+# sudo -H -u seard bash -c 'git checkout master -f'
 sudo -H -u seard bash -c 'git checkout dev -f'
 
 date && echo git pull

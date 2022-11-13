@@ -12,6 +12,7 @@
     "browser-request": "^0.3.3",
     "cheerio": "^1.0.0-rc.12",
     "connect": "^3.7.0",
+    "dotenv": "^16.0.3",
     "eslint": "^8.23.0",
     "espeak-pipe": "^0.0.2",
     "express": "^4.18.1",
