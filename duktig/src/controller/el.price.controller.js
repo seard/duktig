@@ -23,7 +23,6 @@ const ElPriceController = {
         }
 
         const h = new Date().getHours();
-
         this.speak = speak && h > wakeHoursStart && h < wakeHoursEnd;
         this.highPrice = highPrice;
         this.lowPrice = lowPrice;
@@ -36,6 +35,10 @@ const ElPriceController = {
             // Flash red for minimum of 2 seconds to show client we're loading the price
             LedController.flash(255, 0, 0, 500);
             await delay(2000);
+            
+            const h = new Date().getHours();
+            this.speak = speak && h > wakeHoursStart && h < wakeHoursEnd;
+            
             this.readElPrice();
         }, interval);
     },
