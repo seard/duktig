@@ -12,11 +12,11 @@
 ###
 
 date && echo git checkout master
-# git checkout master -f
-git checkout dev -f
+sudo -H -u seard bash -c 'git checkout master -f'
+sudo -H -u seard bash -c 'git checkout dev -f'
 
 date && echo git pull
-git pull
+sudo -H -u seard bash -c 'git pull'
 
 date && echo ./install.sh
 sudo ./install.sh
