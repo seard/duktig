@@ -8,8 +8,12 @@
 #
 
 1: Setup [duktig-middleman](https://github.com/seard/duktig-middleman)
-2: In `server.js`, set the `readCommandUrl` to the read-API on the server running the middleman:
+
+2: Place project in /home/seard/Desktop/duktig-proj (:warning: important)
+
+3: In `server.js`, set the `readCommandUrl` to the read-API on the server running the middleman:
 ```javascript
 const readCommandUrl = 'https://sebastianardesjo.com/duktig/read'
 ```
-3: Run `update.sh`, then reboot the device
+
+4: Run `update.sh`, then reboot the device
