@@ -3,11 +3,11 @@ Description=Autostart service for Duktig-updater
 After=network-online.target
 
 [Service]
-WorkingDirectory=/home/seard/Desktop/duktig-proj/
-ExecStart=sudo node update.sh
+WorkingDirectory=/home/seard/Desktop/duktig-proj/install/
+ExecStart=/bin/bash update.sh
 Type=oneshot
-StandardOutput=syslog
-StandardError=syslog
+StandardOutput=journal
+StandardError=journal
 SyslogIdentifier=duktig-updater
 User=root
 Group=root

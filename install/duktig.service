@@ -5,9 +5,10 @@ After=duktig-updater.service
 [Service]
 WorkingDirectory=/home/seard/Desktop/duktig-proj/duktig/
 ExecStart=sudo node server.js
+TimeoutStartSec=5
 #Restart=always
-StandardOutput=syslog
-StandardError=syslog
+StandardOutput=journal
+StandardError=journal
 SyslogIdentifier=duktig
 User=root
 Group=root

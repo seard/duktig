@@ -1,10 +1,13 @@
 const delay = ms => new Promise(res => setTimeout(res, ms));
-
-function randInt(max) {
-    return Math.floor(Math.random() * max);
-}
+const randInt = (max) => Math.floor(Math.random() * max);
+const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
+const isValidHour = (h) => h > 0 && h < 24;
+const padTo2Digits = (num) => String(num).padStart(2, '0');
 
 module.exports = {
     delay,
-    randInt
+    randInt,
+    clamp,
+    padTo2Digits,
+    isValidHour
 };
