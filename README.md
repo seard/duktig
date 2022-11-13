@@ -1,5 +1,6 @@
 # TODO
 - Push IP to middleman
+- Add secret REBOOT API-call on website
 - Add outlet in the box so that the speaker doesn't run on electricity from the pi
   - Get rid of AUX static? Maybe disable voltage on USB slot until playing sound
 - Play Youtube sounds?
