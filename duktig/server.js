@@ -91,13 +91,11 @@ const handleCommand = (json) => {
     LedController.alternate({ r: 255, g: 0, b: 155 }, { r: 0, g: 255, b: 170 }, 1000);
 
     const introductions = [
-        "Whats poppin my neighbors, shit be real ya know",
-        "Fo shizzle my nizzle, ya know what Im sayin neighbor",
-        "Hows it hanging my neighbors, I be making fat stacks, no disrespect",
-        "Straight outa da celly, flexing mah bling, like it aint no thing"
+        `Hows it hanging my neighbors. Im running Duktig version 0.2.`,
+        `My IP is ${localIpAddress()}`
     ];
 
-    await TtsController.speak(`${introductions[randInt(introductions.length)]}, my IP be like ${localIpAddress()}`);
+    await TtsController.speak(introductions.join(' '));
     await delay(10000);
 
     setInterval(() => {
