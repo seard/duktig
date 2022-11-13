@@ -8,12 +8,12 @@
 date && echo Installing Duktig...
 
 date && echo Stopping services if exists
-sudo systemctl stop duktig.service
 sudo systemctl stop duktig-updater.service
+sudo systemctl stop duktig.service
 
 date && echo Removing services if exists
-sudo rm /etc/systemd/system/duktig.service
 sudo rm /etc/systemd/system/duktig-updater.service
+sudo rm /etc/systemd/system/duktig.service
 
 #echo Removing folder /usr/bin/duktig/ if exists
 #sudo rm -rf /usr/bin/duktig
@@ -22,12 +22,16 @@ sudo rm /etc/systemd/system/duktig-updater.service
 #sudo cp -r ../duktig /usr/bin/
 
 date && echo Copying services to services folder
-sudo cp duktig.service /etc/systemd/system/duktig.service
 sudo cp duktig.service /etc/systemd/system/duktig-updater.service
+sudo cp duktig.service /etc/systemd/system/duktig.service
 
 date && echo Enabling services
-sudo systemctl enable duktig.service
 sudo systemctl enable duktig-updater.service
+sudo systemctl enable duktig.service
+
+date && echo Enabling services
+# DO NOT START duktig-updater.service HERE, OR WE CREATE AN ENDLESS LOOP
+sudo systemctl start duktig.service
 
 #read -p "DO YOU WISH TO REBOOT NOW? (y/n) " yn
 
@@ -39,4 +43,4 @@ sudo systemctl enable duktig-updater.service
 #		exit 1;;
 #esac
 
-#sudo reboot
+# sudo reboot
