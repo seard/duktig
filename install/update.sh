@@ -19,4 +19,4 @@ date && echo git pull
 git pull
 
 date && echo ./install.sh
-./install.sh
+sudo ./install.sh

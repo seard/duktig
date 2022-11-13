@@ -4,7 +4,7 @@ After=network-online.target
 
 [Service]
 WorkingDirectory=/home/seard/Desktop/duktig-proj/
-ExecStart=sudo node update.sh
+ExecStart=./install/update.sh
 Type=oneshot
 StandardOutput=syslog
 StandardError=syslog
