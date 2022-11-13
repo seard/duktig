@@ -4,7 +4,7 @@ After=network-online.target
 
 [Service]
 WorkingDirectory=/home/seard/Desktop/duktig-proj/install/
-ExecStart=sudo ./update.sh
+ExecStart=./update.sh
 Type=oneshot
 StandardOutput=journal
 StandardError=journal
