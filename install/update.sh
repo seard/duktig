@@ -12,7 +12,8 @@
 ###
 
 date && echo git checkout master
-git checkout master -f
+# git checkout master -f
+git checkout dev -f
 
 date && echo git pull
 git pull
