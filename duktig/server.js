@@ -101,7 +101,7 @@ const handleCommand = (json) => {
     LedController.alternate({ r: 255, g: 0, b: 155 }, { r: 0, g: 255, b: 170 }, 1000);
 
     const introductions = [
-        `Hows it hanging my neighbors. I am running Duktig version 0.2.2`,
+        `Hows it hanging my neighbors. I am running Duktig version 0.2.3`,
         `My IP is ${localIpAddress()}`
     ];
 
