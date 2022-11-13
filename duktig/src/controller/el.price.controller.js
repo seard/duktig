@@ -3,7 +3,7 @@ const cheerio = require("cheerio");
 const { Mpg123Controller } = require('./mpg123.controller');
 const { LedController } = require('./led.controller');
 const { TtsController } = require('./tts.controller');
-const { delay } = require('../util/helpers');
+const { delay, isValidHour, padTo2Digits, clamp } = require('../util/helpers');
 
 let elPriceCrashed = false;
 
@@ -15,19 +15,32 @@ let highestPrice = null;
 let runningLoop;
 
 const ElPriceController = {
-    startElPriceReader(interval, speak = false) {
+    startElPriceReader(interval, highPrice, lowPrice, speak = false, wakeHoursStart = 8, wakeHoursEnd = 21) {
+        if (wakeHoursStart > wakeHoursEnd || !isValidHour(wakeHoursStart) || !isValidHour(wakeHoursEnd)) {
+            // Go to default wakeHours
+            wakeHoursStart = 9;
+            wakeHoursEnd = 21;
+        }
+
+        const h = new Date().getHours();
+
+        this.speak = speak && h > wakeHoursStart && h < wakeHoursEnd;
+        this.highPrice = highPrice;
+        this.lowPrice = lowPrice;
+
         this.stopElPriceReader();
-        this.readElPrice(speak);
+        this.readElPrice();
 
         this._startLoop(async () => {
             LedController.resetLEDs()
+            // Flash red for minimum of 2 seconds to show client we're loading the price
             LedController.flash(255, 0, 0, 500);
             await delay(2000);
             this.readElPrice();
         }, interval);
     },
 
-    readElPrice(speak) {
+    readElPrice() {
         this._fetchData().then(async () => {
             LedController
                 .resetLEDs()
@@ -35,10 +48,10 @@ const ElPriceController = {
                 .setG(ElPriceController._getGValue());
 
             const dt = new Date();
-            const h = dt.getHours();
-            const m = dt.getMinutes();
+            const h = padTo2Digits(dt.getHours());
+            const m = padTo2Digits(dt.getMinutes());
 
-            if (speak && (h > 8 && h < 23)) {
+            if (this.speak) {
                 await TtsController.speak(`The time is ${h}:${m} and the current electricity price is ${this._getCurrentPrice()} per kilowatt hour`);
             }
         });
@@ -48,23 +61,37 @@ const ElPriceController = {
         clearInterval(runningLoop);
     },
 
-    _startLoop(func, interval = 25) {
+    _startLoop(func, interval) {
         clearInterval(runningLoop);
         runningLoop = setInterval(func, interval);
     },
 
     _getRValue() {
-        const diff = highestPrice - lowestPrice;
-        const ledMultiplier = 255 / highestPrice;
-        const correctedPrice = currentPrice - lowestPrice;
+        const tHighPrice = this.highPrice || highestPrice;
+        const tLowPrice = this.lowPrice || lowestPrice;
+
+        const diff = tHighPrice - tLowPrice;
+        if (diff < 1) {
+            // Avoid division by 0
+            diff = 1;
+        }
+        const ledMultiplier = 255 / diff;
+        const correctedPrice = currentPrice - tLowPrice;
         const RValue = Math.round(correctedPrice * ledMultiplier);
         return RValue;
     },
 
     _getGValue() {
-        const diff = highestPrice - lowestPrice;
-        const ledMultiplier = 255 / highestPrice;
-        const correctedPrice = currentPrice - lowestPrice;
+        const tHighPrice = this.highPrice || highestPrice;
+        const tLowPrice = this.lowPrice || lowestPrice;
+
+        const diff = tHighPrice - tLowPrice;
+        if (diff < 1) {
+            // Avoid division by 0
+            diff = 1;
+        }
+        const ledMultiplier = 255 / diff;
+        const correctedPrice = currentPrice - tLowPrice;
         const GValue = 255 - Math.round(correctedPrice * ledMultiplier);
         return GValue;
     },

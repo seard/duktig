@@ -1,6 +1,5 @@
 var GPIO = require('pigpio').Gpio;
-const { exec } = require("child_process");
-const { delay } = require('../util/helpers');
+const { delay, clamp } = require('../util/helpers');
 
 const LEDs = {
     R: { GPIO: new GPIO(17, { mode: GPIO.OUTPUT }) },
@@ -24,17 +23,17 @@ const LedController = {
     },
 
     setR(val) {
-        LEDs.R.GPIO.pwmWrite(val);
+        LEDs.R.GPIO.pwmWrite(clamp(val, 0, 255));
         return this;
     },
 
     setG(val) {
-        LEDs.G.GPIO.pwmWrite(val);
+        LEDs.G.GPIO.pwmWrite(clamp(val, 0, 255));
         return this;
     },
 
     setB(val) {
-        LEDs.B.GPIO.pwmWrite(val);
+        LEDs.B.GPIO.pwmWrite(clamp(val, 0, 255));
         return this;
     },
 

@@ -9,6 +9,12 @@ const { delay, randInt } = require('./src/util/helpers');
 
 var app = express();
 app.use(express['static'](__dirname));
+app.listen(3000);
+console.log('App Server running at port 3000');
+
+const readDelay = 3000;
+const readCommandUrl = 'https://sebastianardesjo.com/duktig/read'
+let lastTimeStamp = null;
 
 // Raspberry Pi states
 const DUKTIG = {
@@ -36,13 +42,24 @@ const DUKTIG = {
     },
     ELECTRICITY: async () => {
         const query = {
-            interval: 10000, // 30 * 60 * 1000, // 30 minutes
+            interval: 30 * 60 * 1000, // 30 minutes
             speak: true,
-            highPrice: 500,
-            lowPrice: 50,
+            highPrice: 150,
+            lowPrice: 20,
+            wakeHoursStart: 8,
+            wakeHoursEnd: 22,
         };
 
-        ElPriceController.startElPriceReader(query.interval, query.highPrice, query.lowPrice, query.speak);
+        const { interval, speak, highPrice, lowPrice, wakeHoursStart, wakeHoursEnd } = query;
+
+        ElPriceController.startElPriceReader(
+            interval,
+            highPrice,
+            lowPrice,
+            speak,
+            wakeHoursStart,
+            wakeHoursEnd
+        );
     },
     SPEAK: async (query) => {
         const { text } = query;
@@ -53,13 +70,6 @@ const DUKTIG = {
     },
 };
 
-app.listen(3000);
-console.log('App Server running at port 3000');
-
-const readDelay = 3000;
-const readCommandUrl = 'https://sebastianardesjo.com/duktig/read'
-
-let lastTimeStamp = null;
 const handleCommand = (json) => {
     if (!json.timestamp || json.timestamp === lastTimeStamp) {
         // Faulty command or same command as before
@@ -91,12 +101,12 @@ const handleCommand = (json) => {
     LedController.alternate({ r: 255, g: 0, b: 155 }, { r: 0, g: 255, b: 170 }, 1000);
 
     const introductions = [
-        `Hows it hanging my neighbors. Im running Duktig version 0.2.`,
+        `Hows it hanging my neighbors. I am running Duktig version 0.2.`,
         `My IP is ${localIpAddress()}`
     ];
 
-    await TtsController.speak(introductions.join(' '));
-    await delay(10000);
+    // await TtsController.speak(introductions.join(' '));
+    // await delay(10000);
 
     setInterval(() => {
         request(readCommandUrl, { json: true }, (err, res, body) => {
