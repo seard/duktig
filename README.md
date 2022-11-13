@@ -9,7 +9,7 @@
 
 1: Setup [duktig-middleman](https://github.com/seard/duktig-middleman)
 
-2: Place project in /home/seard/Desktop/duktig-proj (:warning: important)
+2: Place project in `/home/seard/Desktop/duktig-proj` :warning: IMPORTANT
 
 3: In `server.js`, set the `readCommandUrl` to the read-API on the server running the middleman:
 ```javascript
