@@ -22,7 +22,7 @@ sudo rm /etc/systemd/system/duktig.service
 #sudo cp -r ../duktig /usr/bin/
 
 date && echo Copying services to services folder
-sudo cp duktig.service /etc/systemd/system/duktig-updater.service
+sudo cp duktig-updater.service /etc/systemd/system/duktig-updater.service
 sudo cp duktig.service /etc/systemd/system/duktig.service
 
 date && echo Enabling services

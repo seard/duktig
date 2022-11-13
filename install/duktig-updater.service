@@ -3,8 +3,8 @@ Description=Autostart service for Duktig-updater
 After=network-online.target
 
 [Service]
-WorkingDirectory=/home/seard/Desktop/duktig-proj/
-ExecStart=sudo ./install/update.sh
+WorkingDirectory=/home/seard/Desktop/duktig-proj/install/
+ExecStart=sudo ./update.sh
 Type=oneshot
 StandardOutput=syslog
 StandardError=syslog
