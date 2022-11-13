@@ -16,3 +16,5 @@ const readCommandUrl = 'https://sebastianardesjo.com/duktig/read'
 ```
 
 4: Run `update.sh`, then reboot the device
+
+5: Uncomment this line in `update.sh` when ready to go on master: `# git checkout master -f`
