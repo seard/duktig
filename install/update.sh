@@ -18,5 +18,8 @@ sudo -H -u seard bash -c 'git checkout dev -f'
 date && echo git pull
 sudo -H -u seard bash -c 'git pull'
 
+date && echo Running yarn
+yarn
+
 date && echo ./install.sh
 sudo ./install.sh
