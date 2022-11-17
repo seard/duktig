@@ -44,9 +44,9 @@ const DUKTIG = {
     },
     ELECTRICITY: async () => {
         const query = {
-            interval: 30 * 60 * 1000, // 30 minutes
-            speak: true,
-            highPrice: 150,
+            interval: 15 * 60 * 1000, // 30 minutes
+            speak: false,
+            highPrice: 200,
             lowPrice: 20,
             wakeHoursStart: 8,
             wakeHoursEnd: 22,
