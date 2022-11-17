@@ -11,7 +11,7 @@
 #    b: START THE SERVICES
 ###
 
-date && echo git checkout master
+date && echo git checkout
 # sudo -H -u seard bash -c 'git checkout master -f'
 sudo -H -u seard bash -c 'git checkout dev -f'
 

@@ -22,14 +22,9 @@ const ElPriceController = {
             wakeHoursEnd = 21;
         }
 
-<<<<<<< HEAD
         this.speak = speak;
         this.wakeHoursStart = wakeHoursStart;
         this.wakeHoursEnd = wakeHoursEnd;
-=======
-        const h = new Date().getHours();
-        this.speak = speak && h > wakeHoursStart && h < wakeHoursEnd;
->>>>>>> 7cdcce32e48979ad9c60d360a3edc50ad03dbd7f
         this.highPrice = highPrice;
         this.lowPrice = lowPrice;
 
@@ -41,10 +36,6 @@ const ElPriceController = {
             // Flash red for minimum of 2 seconds to show client we're loading the price
             LedController.flash(255, 0, 0, 500);
             await delay(2000);
-            
-            const h = new Date().getHours();
-            this.speak = speak && h > wakeHoursStart && h < wakeHoursEnd;
-            
             this.readElPrice();
         }, interval);
     },
@@ -62,7 +53,7 @@ const ElPriceController = {
             const doSpeak = this.speak && h > this.wakeHoursStart && h < this.wakeHoursEnd;
 
             if (doSpeak) {
-                await TtsController.speak(`The time is ${h}:${m} and the current electricity price is ${this._getCurrentPrice()} per kilowatt hour`);
+                await TtsController.speak(`The time is ${h}:${m} and the electricity price is ${this._getCurrentPrice()}`);
             }
         });
     },
