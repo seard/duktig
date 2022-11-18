@@ -24,12 +24,13 @@ if cd /home/seard/client/duktig ; then
         git status
         sudo rm -rf /home/seard/client
         mkdir /home/seard/client
+        sudo -H -u seard bash -c 'mkdir /home/seard/client'
         sudo -H -u seard bash -c 'git clone https://github.com/seard/duktig.git /home/seard/client/'
     fi
 else
     echo "Client does not exist => creating it"
     sudo rm -rf /home/seard/client
-    mkdir /home/seard/client
+    sudo -H -u seard bash -c 'mkdir /home/seard/client'
     sudo -H -u seard bash -c 'git clone https://github.com/seard/duktig.git /home/seard/client/'
 fi
 
