@@ -40,3 +40,17 @@ echo "Running npm install..."
 npm install
 sudo ../install/install.sh
 sudo systemctl daemon-reload
+
+#date && echo git checkout master
+#date && echo git checkout
+# sudo -H -u seard bash -c 'git checkout master -f'
+#sudo -H -u seard bash -c 'git checkout dev -f'
+
+#date && echo git pull
+#sudo -H -u seard bash -c 'git pull'
+
+#date && echo Running npm install
+#npm install ../duktig
+
+#date && echo ./install.sh
+#sudo ./install.sh
