@@ -22,7 +22,6 @@ if cd /home/seard/client/duktig ; then
         echo "Failed when pulling => deleting folder and cloning new repository..."
         git status
         sudo rm -rf /home/seard/client
-        mkdir /home/seard/client
         sudo -H -u seard bash -c 'mkdir /home/seard/client'
         sudo -H -u seard bash -c 'git clone https://github.com/seard/duktig.git /home/seard/client/'
     fi
