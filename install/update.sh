@@ -17,7 +17,7 @@ echo "Attempting to resolve project..."
 if cd /home/seard/client/duktig ; then
     echo "Client exists => trying to pull latest version from Github repository..."
     git status
-    if sudo -H -u seard bash -c 'git pull' ; then
+    if sudo -H -u seard bash -c 'git pull -f' ; then
         echo "Latest version pulled successfully"
     else
         echo "Failed when pulling => deleting folder and cloning new repository..."
