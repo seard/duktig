@@ -3,9 +3,8 @@ Description=Autostart service for Duktig
 After=duktig-updater.service
 
 [Service]
-WorkingDirectory=/home/seard/Desktop/gitdev/duktig/duktig/
+WorkingDirectory=/home/seard/client/duktig/
 ExecStart=sudo node server.js
-TimeoutStartSec=5
 #Restart=always
 StandardOutput=journal
 StandardError=journal

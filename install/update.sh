@@ -11,15 +11,31 @@
 #    b: START THE SERVICES
 ###
 
-date && echo git checkout
-# sudo -H -u seard bash -c 'git checkout master -f'
-sudo -H -u seard bash -c 'git checkout dev -f'
+set -o xtrace
 
-date && echo git pull
-sudo -H -u seard bash -c 'git pull'
+echo "Attempting to resolve project..."
+if cd /home/seard/client/duktig ; then
+    echo "Client exists => trying to pull latest version from Github repository..."
+    git status
+    if sudo -H -u seard bash -c 'git pull' ; then
+        echo "Latest version pulled successfully"
+    else
+        echo "Failed when pulling => deleting folder and cloning new repository..."
+        git status
+        sudo rm -rf /home/seard/client
+        mkdir /home/seard/client
+        sudo -H -u seard bash -c 'git clone https://github.com/seard/duktig.git /home/seard/client/'
+    fi
+else
+    echo "Client does not exist => creating it"
+    sudo rm -rf /home/seard/client
+    mkdir /home/seard/client
+    sudo -H -u seard bash -c 'git clone https://github.com/seard/duktig.git /home/seard/client/'
+fi
 
-date && echo Running npm install
-npm install ../duktig
+cd /home/seard/client/duktig
 
-date && echo ./install.sh
-sudo ./install.sh
+echo "Running npm install..."
+npm install
+sudo ../install/install.sh
+sudo systemctl daemon-reload
