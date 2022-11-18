@@ -3,8 +3,9 @@ Description=Autostart service for Duktig-updater
 After=network-online.target
 
 [Service]
-WorkingDirectory=/home/seard/Desktop/duktig-proj/install/
+WorkingDirectory=/home/seard/Desktop/gitdev/duktig/install/
 ExecStart=/bin/bash update.sh
+TimeoutStartSec=5
 Type=oneshot
 StandardOutput=journal
 StandardError=journal

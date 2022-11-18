@@ -15,16 +15,16 @@ let highestPrice = null;
 let runningLoop;
 
 const ElPriceController = {
-    startElPriceReader(interval, highPrice, lowPrice, speak = false, wakeHoursStart = 8, wakeHoursEnd = 21) {
+    startElPriceReader(interval, highPrice = 200, lowPrice = 20, speak = false, wakeHoursStart = 8, wakeHoursEnd = 21) {
         if (wakeHoursStart > wakeHoursEnd || !isValidHour(wakeHoursStart) || !isValidHour(wakeHoursEnd)) {
             // Go to default wakeHours
             wakeHoursStart = 9;
             wakeHoursEnd = 21;
         }
 
-        const h = new Date().getHours();
-
-        this.speak = speak && h > wakeHoursStart && h < wakeHoursEnd;
+        this.speak = speak;
+        this.wakeHoursStart = wakeHoursStart;
+        this.wakeHoursEnd = wakeHoursEnd;
         this.highPrice = highPrice;
         this.lowPrice = lowPrice;
 
@@ -50,9 +50,10 @@ const ElPriceController = {
             const dt = new Date();
             const h = padTo2Digits(dt.getHours());
             const m = padTo2Digits(dt.getMinutes());
+            const doSpeak = this.speak && h > this.wakeHoursStart && h < this.wakeHoursEnd;
 
-            if (this.speak) {
-                await TtsController.speak(`The time is ${h}:${m} and the current electricity price is ${this._getCurrentPrice()} per kilowatt hour`);
+            if (doSpeak) {
+                await TtsController.speak(`The time is ${h}:${m} and the electricity price is ${this._getCurrentPrice()}`);
             }
         });
     },
