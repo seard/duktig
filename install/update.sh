@@ -37,8 +37,11 @@ fi
 cd /home/seard/client/duktig
 
 echo "Running npm install..."
-npm install
-sudo ../install/install.sh
+sudo -H -u seard bash -c 'npm install'
+
+echo "Setting up services..."
+cd /home/seard/client/install/
+sudo ./install.sh
 sudo systemctl daemon-reload
 
 #date && echo git checkout master
