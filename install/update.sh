@@ -16,33 +16,32 @@ set -o xtrace
 echo "Attempting to resolve project..."
 if cd /home/seard/client/duktig ; then
     echo "Client exists => trying to pull latest version from Github repository..."
-    git status
-    if sudo -H -u seard bash -c 'git pull' ; then
+    if sudo -H -u seard bash -c 'git pull -f' ; then
         echo "Latest version pulled successfully"
     else
         echo "Failed when pulling => deleting folder and cloning new repository..."
         git status
+        cd /home/
         sudo rm -rf /home/seard/client
-        mkdir /home/seard/client
         sudo -H -u seard bash -c 'mkdir /home/seard/client'
         sudo -H -u seard bash -c 'git clone https://github.com/seard/duktig.git /home/seard/client/'
     fi
 else
     echo "Client does not exist => creating it"
+    cd /home/
     sudo rm -rf /home/seard/client
     sudo -H -u seard bash -c 'mkdir /home/seard/client'
     sudo -H -u seard bash -c 'git clone https://github.com/seard/duktig.git /home/seard/client/'
 fi
 
-cd /home/seard/client/duktig
-
-echo "Running npm install..."
-sudo -H -u seard bash -c 'npm install'
-
 echo "Setting up services..."
 cd /home/seard/client/install/
 sudo ./install.sh
-sudo systemctl daemon-reload
+
+cd /home/seard/client/duktig
+
+echo "Running npm install..."
+sudo -H -u seard bash -c 'timeout 10m npm install'
 
 #date && echo git checkout master
 #date && echo git checkout
