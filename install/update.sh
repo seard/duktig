@@ -20,32 +20,30 @@ if for i in {1..20}; do ping -c1 www.google.com &> /dev/null && break; done ; th
     echo "Attempting to resolve project..."
     if cd /home/seard/client/duktig ; then
         echo "Client exists => trying to pull latest version from Github repository..."
-        if sudo -H -u seard bash -c 'git pull -f' ; then
+        if sudo -H -u seard bash -c 'git pull -f | grep -q "Already up to date."' ; then
             echo "Latest version pulled successfully"
+            echo "Setting up services..."
+            sudo ./install.sh
+            exit 0
         else
             echo "Failed when pulling => deleting folder and cloning new repository..."
             git status
             cd /home/
             sudo rm -rf /home/seard/client
-            sudo -H -u seard bash -c 'mkdir /home/seard/client'
-            sudo -H -u seard bash -c 'git clone https://github.com/seard/duktig.git /home/seard/client/'
+            sudo -H -u seard bash -c 'mkdir /home/seard/client && git clone https://github.com/seard/duktig.git /home/seard/client/'
         fi
     else
         echo "Client does not exist => creating it"
         cd /home/
         sudo rm -rf /home/seard/client
-        sudo -H -u seard bash -c 'mkdir /home/seard/client'
-        sudo -H -u seard bash -c 'git clone https://github.com/seard/duktig.git /home/seard/client/'
+        sudo -H -u seard bash -c 'mkdir /home/seard/client && git clone https://github.com/seard/duktig.git /home/seard/client/'
     fi
 
     if cd /home/seard/client/install/ ; then
         echo "Setting up services..."
         sudo ./install.sh
-
-        cd /home/seard/client/duktig
-
         echo "Running npm install..."
-        sudo -H -u seard bash -c 'timeout 10m npm install'
+        sudo -H -u seard bash -c 'cd /home/seard/client/duktig && timeout 3m npm install'
     else
         echo "Broken"
     fi
