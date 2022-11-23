@@ -29,7 +29,9 @@ date && echo Enabling services
 sudo systemctl enable duktig-updater.service
 sudo systemctl enable duktig.service
 
-date && echo Enabling services
+sudo systemctl daemon-reload
+
+date && echo Starting services
 # DO NOT START duktig-updater.service HERE, OR WE CREATE AN ENDLESS LOOP
 sudo systemctl start duktig.service
 
