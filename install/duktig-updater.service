@@ -1,6 +1,6 @@
 [Unit]
 Description=Autostart service for Duktig-updater
-After=network-online.target
+Wants=network-online.target
 
 [Service]
 WorkingDirectory=/home/seard/Desktop/gitdev/duktig/install/
