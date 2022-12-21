@@ -44,17 +44,12 @@ const DUKTIG = {
             await TtsController.speak(text);
         },
     },
-    ELECTRICITY: async () => {
-        const query = {
-            interval: 15 * 60 * 1000, // 30 minutes
-            speak: false,
-            highPrice: 200,
-            lowPrice: 20,
-            wakeHoursStart: 8,
-            wakeHoursEnd: 22,
-        };
+    ELECTRICITY: async (query) => {
+        const { highPrice, lowPrice, speak } = query;
 
-        const { interval, speak, highPrice, lowPrice, wakeHoursStart, wakeHoursEnd } = query;
+        const interval = 15 * 60 * 1000; // 30 minutes
+        const wakeHoursStart = 8;
+        const wakeHoursEnd = 22;
 
         ElPriceController.startElPriceReader(
             interval,
@@ -123,13 +118,13 @@ const handleCommand = (json) => {
     ElPriceController.stopElPriceReader();
 
     switch (json.path) {
-        // case '/duktig/led/stop': DUKTIG.LED.STOP(json.query); break;
-        case '/duktig/led/stop': DUKTIG.ELECTRICITY(json.query); break;
+        case '/duktig/led/stop': DUKTIG.LED.STOP(json.query); break;
         case '/duktig/led/set': DUKTIG.LED.SET(json.query); break;
         case '/duktig/led/pulse': DUKTIG.LED.PULSE(json.query); break;
         case '/duktig/led/flash': DUKTIG.LED.FLASH(json.query); break;
-        case '/duktig/elprice': DUKTIG.ELECTRICITY(json.query); break;
+
         case '/duktig/speak': DUKTIG.SPEAK(json.query); break;
+        case '/duktig/elprice': DUKTIG.ELECTRICITY(json.query); break;
 
         case '/duktig/important/lastrickmas': DUKTIG.IMPORTANT.LASTRICKMAS(json.query); break;
         case '/duktig/important/borattheme': DUKTIG.IMPORTANT.BORATTHEME(json.query); break;
