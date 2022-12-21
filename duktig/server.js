@@ -70,7 +70,8 @@ const DUKTIG = {
         await TtsController.speak(text)
     },
     IMPORTANT: {
-        // To calculate frequency: BPM * 3 * ~1.024
+        // To calculate frequency: BPM * 3
+        // Sometimes you have to multiply it by * ~1.024
         LASTRICKMAS: async () => {
             Mpg123Controller.play(`${__dirname}/audio/rickroll/rickroll_christmas.mp3`);
             LedController.resetLEDs()
@@ -79,7 +80,7 @@ const DUKTIG = {
         BORATTHEME: async () => {
             Mpg123Controller.play(`${__dirname}/audio/borat/borat_theme.mp3`);
             LedController.resetLEDs()
-                .alternate({ r: 255, g: 155, b: 100 }, { r: 0, g: 255, b: 170 }, { r: 255, g: 60, b: 0 }, 2367); // 77 BPM
+                .alternate({ r: 255, g: 155, b: 100 }, { r: 0, g: 255, b: 170 }, { r: 255, g: 60, b: 0 }, 2310); // 77 BPM
         },
     },
     SYSTEM: {
