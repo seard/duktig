@@ -129,36 +129,23 @@ const handleCommand = (json) => {
 
 (async function main() {
     // Alternate between our favorite theme colors
-    /*
     LedController.alternate({ r: 255, g: 0, b: 155 }, { r: 0, g: 255, b: 170 }, null, 1000);
 
+    // Introduction
     const introductions = [
         `Howdy neighbors. I am running Duktig version ${process.env.VERSION}`,
         `My IP is ${localIpAddress()}`
     ];
-
     await TtsController.speak(introductions.join(' '));
     await delay(10000);
-    */
 
+    // Start listening to /read commands
     setInterval(() => {
         request(readCommandUrl, { json: true }, (err, res, body) => {
             if (err) return console.log(err);
             handleCommand(body);
         });
     }, readDelay);
-    
-    /*
-    ElPriceController._fetchData().then(async () => {
-        LedController
-            .resetLEDs()
-            .setR(ElPriceController._getRValue())
-            .setG(ElPriceController._getGValue());
-        await TtsController.speak(`The current electricity price is ${ElPriceController._getCurrentPrice()} per kilowatt hour`);
-    });
-    */
-    
-    //Mpg123Controller.play(`${__dirname}/audio/rickroll/rickroll_christmas.mp3`);
 })();
 
 
