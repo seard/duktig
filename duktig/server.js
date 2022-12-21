@@ -60,7 +60,7 @@ const DUKTIG = {
             interval,
             highPrice,
             lowPrice,
-            speak,
+            parseInt(speak),
             wakeHoursStart,
             wakeHoursEnd
         );
