@@ -23,13 +23,15 @@ if for i in {1..50}; do ping -c1 www.google.com &> /dev/null && break; done ; th
             echo "Latest version pulled successfully. Setting up services..."
         else
             echo "Failed when pulling => deleting folder and cloning new repository..."
-            sudo rm -rf /home/seard/client || true
-            sudo -H -u seard bash -c 'mkdir /home/seard/client && git clone https://github.com/seard/duktig.git /home/seard/client/'
+            cd /home/seard # since we will remove current directory
+            #sudo rm -rf /home/seard/client || true
+            #sudo -H -u seard bash -c 'mkdir /home/seard/client && git clone https://github.com/seard/duktig.git /home/seard/client/'
         fi
     else
         echo "Client does not exist => creating it"
-        sudo rm -rf /home/seard/client || true
-        sudo -H -u seard bash -c 'mkdir /home/seard/client && git clone https://github.com/seard/duktig.git /home/seard/client/'
+        cd /home/seard # since we will remove current directory
+        #sudo rm -rf /home/seard/client || true
+        #sudo -H -u seard bash -c 'mkdir /home/seard/client && git clone https://github.com/seard/duktig.git /home/seard/client/'
     fi
 
 else
