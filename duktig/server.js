@@ -1,5 +1,6 @@
 require('dotenv').config();
 let express = require('express');
+const os = require('os');
 const request = require('request');
 const localIpAddress = require("local-ip-address");
 const { LedController } = require('./src/controller/led.controller');
@@ -69,6 +70,32 @@ const DUKTIG = {
     },
     IMPORTANT: async () => {
         Mpg123Controller.play(`${__dirname}/audio/rickroll/rickroll_christmas.mp3`);
+        LedController.resetLEDs()
+            .alternate({ r: 255, g: 0, b: 0 }, { r: 0, g: 0, b: 255 }, { r: 0, g: 255, b: 0 }, 3320);
+    },
+    SYSTEM: {
+        REBOOT: (query) => {
+            const { password } = query;
+            if (password !== '!5Tokig5galen' || os.uptime() < (5*60)) {
+                // If wrong password, or system hasn't been up for at least 5 minutes, return
+                // Uptime check is to avoid reboot loop. An earlier step will make sure
+                // not to repeat the same command, and so if it reads "reboot"-command before the 5 minute-mark
+                // the reboot will not occur, and it won't repeat it. Cool easy solution
+                return;
+            }
+
+            exec(`sudo reboot ${text}`, (error, stdout, stderr) => {
+                if (error) {
+                    console.log(`error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    console.log(`stderr: ${stderr}`);
+                    return;
+                }
+                console.log(`stdout: ${stdout}`);
+            });
+        }
     },
 };
 
@@ -93,14 +120,17 @@ const handleCommand = (json) => {
         case '/duktig/led/flash': DUKTIG.LED.FLASH(json.query); break;
         case '/duktig/elprice': DUKTIG.ELECTRICITY(json.query); break;
         case '/duktig/speak': DUKTIG.SPEAK(json.query); break;
+
         case '/duktig/important': DUKTIG.IMPORTANT(json.query); break;
+        case '/duktig/system/reboot': DUKTIG.SYSTEM.REBOOT(json.query); break;
         default: break;
     }
 };
 
 (async function main() {
     // Alternate between our favorite theme colors
-    LedController.alternate({ r: 255, g: 0, b: 155 }, { r: 0, g: 255, b: 170 }, 1000);
+    /*
+    LedController.alternate({ r: 255, g: 0, b: 155 }, { r: 0, g: 255, b: 170 }, null, 1000);
 
     const introductions = [
         `Howdy neighbors. I am running Duktig version ${process.env.VERSION}`,
@@ -109,6 +139,7 @@ const handleCommand = (json) => {
 
     await TtsController.speak(introductions.join(' '));
     await delay(10000);
+    */
 
     setInterval(() => {
         request(readCommandUrl, { json: true }, (err, res, body) => {

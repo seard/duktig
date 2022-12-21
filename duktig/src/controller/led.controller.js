@@ -69,15 +69,19 @@ const LedController = {
         }
     },
 
-    alternate(rgb1, rgb2, frequency = 400) {
-        console.log(`ALTERNATE rgb1=${rgb1} | rgb2=${rgb2} | frequency=${frequency}`);
+    alternate(rgb1, rgb2, rgb3 = null, frequency = 400) {
+        console.log(`ALTERNATE rgb1=${rgb1} | rgb2=${rgb2} | rgb3=${rgb3} | frequency=${frequency}`);
         this.startLoop(loop, frequency);
-        const halfFrequency = Math.round(frequency * 0.5);
+        const partFrequency = Math.round(frequency * (rgb3 ? 0.33334 : 0.5));
         async function loop() {
             LedController.setR(rgb1.r).setG(rgb1.g).setB(rgb1.b);
-            await delay(halfFrequency);
+            await delay(partFrequency);
             LedController.setR(rgb2.r).setG(rgb2.g).setB(rgb2.b);
-            await delay(halfFrequency);
+            await delay(partFrequency);
+            if (rgb3) {
+                LedController.setR(rgb3.r).setG(rgb3.g).setB(rgb3.b);
+                await delay(partFrequency);
+            }
         }
     }
 }
