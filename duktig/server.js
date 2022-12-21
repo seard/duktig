@@ -1,6 +1,7 @@
 require('dotenv').config();
 let express = require('express');
 const os = require('os');
+const { exec } = require("child_process");
 const request = require('request');
 const localIpAddress = require("local-ip-address");
 const { LedController } = require('./src/controller/led.controller');
@@ -84,7 +85,7 @@ const DUKTIG = {
                 return;
             }
 
-            exec(`sudo reboot ${text}`, (error, stdout, stderr) => {
+            exec(`sudo reboot`, (error, stdout, stderr) => {
                 if (error) {
                     console.log(`error: ${error.message}`);
                     return;
@@ -128,6 +129,7 @@ const handleCommand = (json) => {
 };
 
 (async function main() {
+    console.log(os.uptime());
     // Alternate between our favorite theme colors
     LedController.alternate({ r: 255, g: 0, b: 155 }, { r: 0, g: 255, b: 170 }, null, 1000);
 
@@ -136,6 +138,7 @@ const handleCommand = (json) => {
         `Howdy neighbors. I am running Duktig version ${process.env.VERSION}`,
         `My IP is ${localIpAddress()}`
     ];
+    
     await TtsController.speak(introductions.join(' '));
     await delay(10000);
 
@@ -143,7 +146,11 @@ const handleCommand = (json) => {
     setInterval(() => {
         request(readCommandUrl, { json: true }, (err, res, body) => {
             if (err) return console.log(err);
+            try {
             handleCommand(body);
+            } catch (e) {
+                console.error(e);
+            }
         });
     }, readDelay);
 })();
