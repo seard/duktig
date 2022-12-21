@@ -77,7 +77,7 @@ const DUKTIG = {
                 .alternate({ r: 255, g: 0, b: 0 }, { r: 0, g: 0, b: 255 }, { r: 0, g: 255, b: 0 }, 3320); // 108 BPM
         },
         BORATTHEME: async () => {
-            Mpg123Controller.play(`${__dirname}/audio/rickroll/borat_theme.mp3`);
+            Mpg123Controller.play(`${__dirname}/audio/borat/borat_theme.mp3`);
             LedController.resetLEDs()
                 .alternate({ r: 255, g: 155, b: 100 }, { r: 0, g: 255, b: 170 }, { r: 255, g: 60, b: 0 }, 2367); // 77 BPM
         },
