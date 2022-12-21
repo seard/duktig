@@ -69,10 +69,18 @@ const DUKTIG = {
         const { text } = query;
         await TtsController.speak(text)
     },
-    IMPORTANT: async () => {
-        Mpg123Controller.play(`${__dirname}/audio/rickroll/rickroll_christmas.mp3`);
-        LedController.resetLEDs()
-            .alternate({ r: 255, g: 0, b: 0 }, { r: 0, g: 0, b: 255 }, { r: 0, g: 255, b: 0 }, 3320);
+    IMPORTANT: {
+        // To calculate frequency: BPM * 3 * ~1.024
+        LASTRICKMAS: async () => {
+            Mpg123Controller.play(`${__dirname}/audio/rickroll/rickroll_christmas.mp3`);
+            LedController.resetLEDs()
+                .alternate({ r: 255, g: 0, b: 0 }, { r: 0, g: 0, b: 255 }, { r: 0, g: 255, b: 0 }, 3320); // 108 BPM
+        },
+        BORATTHEME: async () => {
+            Mpg123Controller.play(`${__dirname}/audio/rickroll/borat_theme.mp3`);
+            LedController.resetLEDs()
+                .alternate({ r: 255, g: 155, b: 100 }, { r: 0, g: 255, b: 170 }, { r: 255, g: 60, b: 0 }, 2367); // 77 BPM
+        },
     },
     SYSTEM: {
         REBOOT: (query) => {
@@ -122,7 +130,8 @@ const handleCommand = (json) => {
         case '/duktig/elprice': DUKTIG.ELECTRICITY(json.query); break;
         case '/duktig/speak': DUKTIG.SPEAK(json.query); break;
 
-        case '/duktig/important': DUKTIG.IMPORTANT(json.query); break;
+        case '/duktig/important/lastrickmas': DUKTIG.IMPORTANT.LASTRICKMAS(json.query); break;
+        case '/duktig/important/borattheme': DUKTIG.IMPORTANT.BORATTHEME(json.query); break;
         case '/duktig/system/reboot': DUKTIG.SYSTEM.REBOOT(json.query); break;
         default: break;
     }
