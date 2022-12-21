@@ -23,6 +23,11 @@ let lastTimeStamp = null;
 // Raspberry Pi states
 const DUKTIG = {
     LED: {
+        STOP: () => {
+            LedController.resetLEDs();
+            Mpg123Controller.stop();
+            ElPriceController.stopElPriceReader();
+        },
         SET: async (query) => {
             const { r, g, b, text } = query;
             LedController.resetLEDs()
@@ -49,7 +54,7 @@ const DUKTIG = {
 
         const interval = 15 * 60 * 1000; // 30 minutes
         const wakeHoursStart = 8;
-        const wakeHoursEnd = 22;
+        const wakeHoursEnd = 23;
 
         ElPriceController.startElPriceReader(
             interval,
@@ -134,7 +139,6 @@ const handleCommand = (json) => {
 };
 
 (async function main() {
-    console.log(os.uptime());
     // Alternate between our favorite theme colors
     LedController.alternate({ r: 255, g: 0, b: 155 }, { r: 0, g: 255, b: 170 }, null, 1000);
 
