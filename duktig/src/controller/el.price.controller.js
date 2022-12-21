@@ -71,7 +71,7 @@ const ElPriceController = {
         const tHighPrice = this.highPrice || highestPrice;
         const tLowPrice = this.lowPrice || lowestPrice;
 
-        const diff = tHighPrice - tLowPrice;
+        let diff = tHighPrice - tLowPrice;
         if (diff < 1) {
             // Avoid division by 0
             diff = 1;
