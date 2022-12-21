@@ -75,12 +75,12 @@ const DUKTIG = {
         LASTRICKMAS: async () => {
             Mpg123Controller.play(`${__dirname}/audio/rickroll/rickroll_christmas.mp3`);
             LedController.resetLEDs()
-                .alternate({ r: 255, g: 0, b: 0 }, { r: 0, g: 0, b: 255 }, { r: 0, g: 255, b: 0 }, 3320); // 108 BPM
+                .alternate({ r: 255, g: 0, b: 0 }, { r: 0, g: 0, b: 255 }, { r: 0, g: 255, b: 0 }, 3320 * 0.5); // 108 BPM
         },
         BORATTHEME: async () => {
             Mpg123Controller.play(`${__dirname}/audio/borat/borat_theme.mp3`);
             LedController.resetLEDs()
-                .alternate({ r: 255, g: 155, b: 100 }, { r: 0, g: 255, b: 170 }, { r: 255, g: 60, b: 0 }, 2310); // 77 BPM
+                .alternate({ r: 255, g: 155, b: 100 }, { r: 0, g: 255, b: 170 }, { r: 255, g: 60, b: 0 }, 2310 * 0.5); // 77 BPM
         },
     },
     SYSTEM: {
